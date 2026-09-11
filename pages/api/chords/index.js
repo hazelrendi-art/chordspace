@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
 
   // Mutasi — haram tanpa admin
-  if (!isAdmin(req)) {
+  if (!(await isAdmin(req))) {
     return res.status(401).json({ error: 'Unauthorized. Login dulu sebagai admin.' })
   }
 
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
 
     // CSRF
     const sessionToken = getSessionToken(req)
-    if (sessionToken && !validateCsrfToken(sessionToken, csrf_token)) {
+    if (sessionToken && !(await validateCsrfToken(sessionToken, csrf_token))) {
       return res.status(403).json({ error: 'CSRF token tidak valid atau expired.' })
     }
 

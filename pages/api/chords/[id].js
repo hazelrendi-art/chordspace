@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     return res.status(200).json(chords[idx])
   }
 
-  if (!isAdmin(req)) {
+  if (!(await isAdmin(req))) {
     return res.status(401).json({ error: 'Unauthorized. Login dulu sebagai admin.' })
   }
 
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
   if (req.method === 'PUT') {
     if (idx === -1) return res.status(404).json({ error: 'Chord tidak ditemukan.' })
     const { name, fingering, difficulty, description, csrf_token } = req.body || {}
-    if (sessionToken && !validateCsrfToken(sessionToken, csrf_token)) {
+    if (sessionToken && !(await validateCsrfToken(sessionToken, csrf_token))) {
       return res.status(403).json({ error: 'CSRF token tidak valid atau expired.' })
     }
     const errors = validateChord({ name, fingering, difficulty, description })
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
   if (req.method === 'DELETE') {
     if (idx === -1) return res.status(404).json({ error: 'Chord tidak ditemukan.' })
     const { csrf_token } = req.body || {}
-    if (sessionToken && !validateCsrfToken(sessionToken, csrf_token)) {
+    if (sessionToken && !(await validateCsrfToken(sessionToken, csrf_token))) {
       return res.status(403).json({ error: 'CSRF token tidak valid atau expired.' })
     }
     const [removed] = chords.splice(idx, 1)

@@ -1,6 +1,6 @@
 import { checkPassword, checkRateLimit, createSession, generateCsrfToken } from '../../../lib/auth'
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST'])
     return res.status(405).end(`Method ${req.method} Not Allowed`)
@@ -20,11 +20,12 @@ export default function handler(req, res) {
     return res.status(401).json({ error: 'Password admin salah!' })
   }
 
-  const sessionToken = createSession(req)
-  const csrf = generateCsrfToken(sessionToken)
+  const sessionToken = await createSession(req)
+  const csrf = await generateCsrfToken(sessionToken)
 
   res.setHeader('Set-Cookie',
     `admin_session=${sessionToken}; Path=/; HttpOnly; SameSite=Strict; Max-Age=86400`)
 
   return res.status(200).json({ ok: true, csrf_token: csrf })
+}
 }

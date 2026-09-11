@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(200).json(await getAllSongs())
   }
 
-  if (!isAdmin(req)) {
+  if (!(await isAdmin(req))) {
     return res.status(401).json({ error: 'Unauthorized. Login dulu sebagai admin.' })
   }
 
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { title, artist, content, difficulty, description, csrf_token } = req.body || {}
     const sessionToken = getSessionToken(req)
-    if (sessionToken && !validateCsrfToken(sessionToken, csrf_token)) {
+    if (sessionToken && !(await validateCsrfToken(sessionToken, csrf_token))) {
       return res.status(403).json({ error: 'CSRF token tidak valid atau expired.' })
     }
     const errors = validateSong({ title, artist, content, difficulty, description })
