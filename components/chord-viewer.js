@@ -35,7 +35,7 @@ function FretboardDiagram({ fingering }) {
   const showPosLabel = startFret > 1
 
   return (
-    <svg viewBox="0 0 160 230" width="180" className="comic-card bg-white dark:bg-[#232332] shrink-0" style={{ transform: 'rotate(2deg)' }}>
+    <svg viewBox="0 0 160 230" className="comic-card bg-white dark:bg-[#232332] shrink-0 w-36 sm:w-44 md:w-[180px]" style={{ transform: 'rotate(2deg)' }}>
       {/* nut (senar 0) */}
       <line x1={padX - 4} y1={padY} x2={W - padX + 4} y2={padY} stroke="black" strokeWidth={startFret === 1 ? "7" : "3"} />
       {/* fret wires */}
@@ -144,9 +144,9 @@ export default function ChordViewer({ name, fingering }) {
         <h2 className="font-comic text-3xl mb-1">Transpose! 🎵</h2>
         <p className="text-sm opacity-70 mb-4">Diagram &amp; posisi jari ikut berubah.</p>
 
-        <div className="flex items-center justify-center gap-4 flex-wrap">
+        <div className="flex items-center justify-center gap-2 sm:gap-4 flex-wrap">
           <button onClick={() => setShift(s => Math.max(s - 1, -11))}
-                  className="btn-comic bg-pop-red text-white text-2xl px-5" aria-label="Turunkan setengah nada">−</button>
+                  className="btn-comic bg-pop-red text-white text-xl sm:text-2xl px-3 sm:px-5" aria-label="Turunkan setengah nada">−</button>
 
           <div className="comic-card bg-pop-yellow dark:bg-pop-yellow px-8 py-3 text-center">
             <div className="font-comic text-5xl text-ink">{currentName}</div>
@@ -156,12 +156,12 @@ export default function ChordViewer({ name, fingering }) {
           </div>
 
           <button onClick={() => setShift(s => Math.min(s + 1, 11))}
-                  className="btn-comic bg-pop-green text-ink text-2xl px-5" aria-label="Naikkan setengah nada">+</button>
+                  className="btn-comic bg-pop-green text-ink text-xl sm:text-2xl px-3 sm:px-5" aria-label="Naikkan setengah nada">+</button>
         </div>
 
         <div className="flex justify-center mt-4">
           {shift !== 0 && (
-            <button onClick={() => setShift(0)} className="btn-comic bg-white dark:bg-[#16161e] text-sm">↺ Reset ke {name}</button>
+            <button onClick={() => setShift(0)} className="btn-comic bg-white dark:bg-[#16161e] text-xs sm:text-sm">↺ Reset ke {name}</button>
           )}
         </div>
 
@@ -174,7 +174,7 @@ export default function ChordViewer({ name, fingering }) {
               return (
                 <button key={i} onClick={() => setShift(i)}
                         title={`Fingering: ${f || '?'}`}
-                        className={`btn-comic text-sm px-2 py-1 ${i === 0 ? 'bg-pop-purple text-white' : 'bg-white dark:bg-[#16161e]'} ${i === shift ? 'ring-4 ring-pop-yellow' : ''}`}>
+                        className={`btn-comic text-xs sm:text-sm px-2 py-1 ${i === 0 ? 'bg-pop-purple text-white' : 'bg-white dark:bg-[#16161e]'} ${i === shift ? 'ring-4 ring-pop-yellow' : ''}`}>
                   {n}
                 </button>
               )
