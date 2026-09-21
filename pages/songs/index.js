@@ -15,7 +15,7 @@ export default function SongsPage({ songs }) {
 
       {songs.length === 0 ? (
         <div className="comic-panel text-center">
-          <p>Belum ada lagu. Upload lewat <Link href="/admin" className="font-bold text-pop-blue">Admin Panel</Link>!</p>
+          <p>Belum ada lagu. Silakan cek kembali nanti!</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

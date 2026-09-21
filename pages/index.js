@@ -16,9 +16,8 @@ export default function Home({ chords }) {
         <p className="mt-3 max-w-lg mx-auto opacity-80 font-bold">
           Kumpulan chord gitar dengan diagram keren, fitur transpose, dan tema gelap/terang. ZAP!
         </p>
-        <div className="mt-5 flex justify-center gap-3 flex-wrap">
+        <div className="mt-5">
           <Link href="/chords" className="btn-comic bg-pop-blue text-white text-xl px-6 py-3">🎸 Jelajahi Chord</Link>
-          <Link href="/admin" className="btn-comic bg-white dark:bg-[#16161e] text-xl px-6 py-3">🔐 Admin</Link>
         </div>
         <span className="absolute top-3 right-4 font-comic text-2xl rotate-12 text-pop-pink">POW!</span>
       </div>
